@@ -1,6 +1,6 @@
 import sys
 from PyQt6.QtCore import QSize
-from PyQt6.QtWidgets import QApplication, QMainWindow, QWidget, QGridLayout, QLabel, QPushButton, QHBoxLayout, QLineEdit
+from PyQt6.QtWidgets import QApplication, QMainWindow, QWidget, QGridLayout, QLabel, QPushButton,QVBoxLayout, QHBoxLayout, QLineEdit
 import pandas
 
 
@@ -31,21 +31,19 @@ class AnotherWindow(QWidget):
         data1.to_csv("./data/Timetable.csv", index=False)
 
 
-
-
-
-
-
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
         self.w = None
         self.setWindowTitle("Timetable")
         self.setFixedSize(QSize(1800, 600))
+        layout0 = QVBoxLayout()
+        layout0.addWidget(QLabel('Timetable for 5th Semester'))
         layout = QGridLayout()
+        layout0.addLayout(layout)
         layout.setSpacing(40)
+
         self.setStyleSheet("background-color: black; color:white;")
-        layout.addWidget()
         for i in range(0, 9):
             label1 = QPushButton(data.axes[1][i])
             font1 = label1.font()
@@ -64,7 +62,7 @@ class MainWindow(QMainWindow):
                 layout.addWidget(label2, i+1, j)
 
         widget = QWidget()
-        widget.setLayout(layout)
+        widget.setLayout(layout0)
         self.setCentralWidget(widget)
 
     def button_clicked(self, buttonx, row, column):
@@ -76,15 +74,6 @@ app = QApplication(sys.argv)
 
 
 data = pandas.read_csv("./data/Timetable.csv")
-
-
-
-
-
-
-
-
-
 
 window = MainWindow()
 window.show()
